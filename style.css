@@ -1,0 +1,125 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #fff;
+    opacity: 1;
+    background: radial-gradient(circle, transparent 20%, #2C2F38 20%, #2C2F38 80%, transparent 80%, transparent), 
+    radial-gradient(circle, transparent 20%, #2C2F38 20%, #2C2F38 80%, transparent 80%, transparent) 45px 45px, 
+    linear-gradient(#ffc0cb 3.6px, transparent 3.6px) 0 -1.8px, 
+    linear-gradient(90deg, #ffc0cb 3.6px, #2C2F38 3.6px) -1.8px 0;
+    background-size: 90px 90px, 90px 90px, 45px 45px, 45px 45px;
+  }
+  
+  #gameContainer {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    border: 2px solid black;
+    background-color: #222;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+  
+  .snake-segment {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #ffc0cb;
+  }
+  
+  .food {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-image: url("./images/yen.png");
+    background-size: cover;
+  }
+  
+  h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 24px;
+    color: #ffc0cb;
+    background-color: #2C2F38;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  #score {
+    margin-top: 15px;
+    font-size: 20px;
+    color: #ffc0cb;
+    font-family: 'Press Start 2P', cursive;
+    background-color: #2C2F38;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+  
+  #startGameBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 15px;
+    border: none;
+    background-color: #ffc0cb;
+    color: #222;
+    font-family: 'Press Start 2P', cursive;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #startGameBtn:hover {
+    background-color: #f9a4b2;
+  }
+  
+  /* Modal styles */
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background: #ffc0cb;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    display: none;
+  }
+  
+  .modal button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #313131;
+    color: #ffc0cb;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+  }
+  
+  .modal button:hover {
+    background-color: #292929;
+  }
+  
+  footer {
+    position: fixed;
+    bottom: -15px;
+    right: 20px;
+    font-size: 14px;
+  }
+  footer p {
+    background-color: #ffc0cb;
+    padding: 5px;
+    border-radius: 5px 5px 0 0;
+  }
+  
