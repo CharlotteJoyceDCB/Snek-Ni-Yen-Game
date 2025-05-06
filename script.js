@@ -4,17 +4,24 @@ const startGameBtn = document.getElementById('startGameBtn');
 const restartBtn = document.getElementById('restartBtn');
 const modal = document.getElementById('gameOverModal');
 
-const gridSize = 15;
+const gridSize = 30;
 const containerSize = 500;
 let snake = [{ x: 150, y: 150 }];
-let food = { x: 75, y: 75 };
+let food = getRandomFoodPosition();
 let dx = gridSize;
 let dy = 0;
 let gameRunning = false;
 let score = 0;
 let gameInterval;
 
-// Create a div for the snake segment
+function getRandomFoodPosition() {
+  const maxPosition = containerSize / gridSize;
+  return {
+    x: Math.floor(Math.random() * maxPosition) * gridSize,
+    y: Math.floor(Math.random() * maxPosition) * gridSize
+  };
+}
+
 function createSegment(x, y) {
   const segment = document.createElement('div');
   segment.className = 'snake-segment';
@@ -23,7 +30,6 @@ function createSegment(x, y) {
   gameContainer.appendChild(segment);
 }
 
-// Create a div for the food
 function createFood() {
   const foodElement = document.createElement('div');
   foodElement.className = 'food';
@@ -32,53 +38,45 @@ function createFood() {
   gameContainer.appendChild(foodElement);
 }
 
-// Update the snake's position
 function updateSnake() {
   const head = { x: snake[0].x + dx, y: snake[0].y + dy };
   snake.unshift(head);
+
   if (head.x === food.x && head.y === food.y) {
     score++;
     scoreDisplay.textContent = `Score: ${score}`;
-    food = {
-      x: Math.floor(Math.random() * (containerSize / gridSize)) * gridSize,
-      y: Math.floor(Math.random() * (containerSize / gridSize)) * gridSize
-    };
+    food = getRandomFoodPosition();
   } else {
     snake.pop();
   }
 }
 
-// Draw the game
 function drawGame() {
   gameContainer.innerHTML = '';
   snake.forEach(segment => createSegment(segment.x, segment.y));
   createFood();
 }
 
-// Show the Game Over modal
 function showGameOverModal() {
   modal.style.display = 'block';
-  clearInterval(gameInterval); 
+  clearInterval(gameInterval);
 }
 
-// Restart the game
 function restartGame() {
   modal.style.display = 'none';
   resetGame();
   startGame();
 }
 
-// Reset game variables
 function resetGame() {
   snake = [{ x: 150, y: 150 }];
-  food = { x: 75, y: 75 };
+  food = getRandomFoodPosition();
   dx = gridSize;
   dy = 0;
   score = 0;
   scoreDisplay.textContent = `Score: ${score}`;
 }
 
-// Start the game
 function startGame() {
   gameRunning = true;
   startGameBtn.style.display = 'none';
@@ -91,7 +89,6 @@ function startGame() {
   }, 150);
 }
 
-// Check for collisions
 function checkCollision() {
   const head = snake[0];
   if (
@@ -104,7 +101,6 @@ function checkCollision() {
   }
 }
 
-// Handle keyboard input
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowUp' && dy === 0) {
     dx = 0; dy = -gridSize;
@@ -117,6 +113,5 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// Event listeners for buttons
 startGameBtn.addEventListener('click', startGame);
 restartBtn.addEventListener('click', restartGame);
