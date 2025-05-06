@@ -4,6 +4,9 @@ const startGameBtn = document.getElementById('startGameBtn');
 const restartBtn = document.getElementById('restartBtn');
 const modal = document.getElementById('gameOverModal');
 
+const chompSound = new Audio('sound/ah.mp3');
+chompSound.volume = 0.5;
+
 const gridSize = 30;
 const containerSize = 500;
 let snake = [{ x: 150, y: 150 }];
@@ -15,10 +18,10 @@ let score = 0;
 let gameInterval;
 
 function getRandomFoodPosition() {
-  const maxPosition = containerSize / gridSize;
+  const max = containerSize / gridSize;
   return {
-    x: Math.floor(Math.random() * maxPosition) * gridSize,
-    y: Math.floor(Math.random() * maxPosition) * gridSize
+    x: Math.floor(Math.random() * max) * gridSize,
+    y: Math.floor(Math.random() * max) * gridSize
   };
 }
 
@@ -45,6 +48,8 @@ function updateSnake() {
   if (head.x === food.x && head.y === food.y) {
     score++;
     scoreDisplay.textContent = `Score: ${score}`;
+    chompSound.currentTime = 0;
+    chompSound.play();
     food = getRandomFoodPosition();
   } else {
     snake.pop();
