@@ -4,18 +4,16 @@ const startGameBtn = document.getElementById('startGameBtn');
 const restartBtn = document.getElementById('restartBtn');
 const modal = document.getElementById('gameOverModal');
 
-const chompSound = new Audio('sound/ah.mp3');
-chompSound.volume = 0.5;
-
-const gridSize = 30;
+const gridSize = 25;
 const containerSize = 500;
-let snake = [{ x: 150, y: 150 }];
+let snake = [{ x: 250, y: 250 }];
 let food = getRandomFoodPosition();
 let dx = gridSize;
 let dy = 0;
 let gameRunning = false;
 let score = 0;
 let gameInterval;
+const chompSound = new Audio('sound/ah.mp3');
 
 function getRandomFoodPosition() {
   const max = containerSize / gridSize;
@@ -62,38 +60,6 @@ function drawGame() {
   createFood();
 }
 
-function showGameOverModal() {
-  modal.style.display = 'block';
-  clearInterval(gameInterval);
-}
-
-function restartGame() {
-  modal.style.display = 'none';
-  resetGame();
-  startGame();
-}
-
-function resetGame() {
-  snake = [{ x: 150, y: 150 }];
-  food = getRandomFoodPosition();
-  dx = gridSize;
-  dy = 0;
-  score = 0;
-  scoreDisplay.textContent = `Score: ${score}`;
-}
-
-function startGame() {
-  gameRunning = true;
-  startGameBtn.style.display = 'none';
-  gameInterval = setInterval(() => {
-    if (gameRunning) {
-      updateSnake();
-      checkCollision();
-      drawGame();
-    }
-  }, 150);
-}
-
 function checkCollision() {
   const head = snake[0];
   if (
@@ -106,14 +72,46 @@ function checkCollision() {
   }
 }
 
+function showGameOverModal() {
+  modal.style.display = 'block';
+  clearInterval(gameInterval);
+}
+
+function restartGame() {
+  modal.style.display = 'none';
+  resetGame();
+  startGame();
+}
+
+function resetGame() {
+  snake = [{ x: 250, y: 250 }];
+  food = getRandomFoodPosition();
+  dx = gridSize;
+  dy = 0;
+  score = 0;
+  scoreDisplay.textContent = `Score: ${score}`;
+}
+
+function startGame() {
+  gameRunning = true;
+  startGameBtn.style.display = 'none';
+  gameInterval = setInterval(() => {
+    if (!gameRunning) return;
+    updateSnake();
+    checkCollision();
+    if (gameRunning) drawGame();
+  }, 150);
+}
+
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowUp' && dy === 0) {
+  const key = e.key;
+  if (key === 'ArrowUp' && dy === 0) {
     dx = 0; dy = -gridSize;
-  } else if (e.key === 'ArrowDown' && dy === 0) {
+  } else if (key === 'ArrowDown' && dy === 0) {
     dx = 0; dy = gridSize;
-  } else if (e.key === 'ArrowLeft' && dx === 0) {
+  } else if (key === 'ArrowLeft' && dx === 0) {
     dx = -gridSize; dy = 0;
-  } else if (e.key === 'ArrowRight' && dx === 0) {
+  } else if (key === 'ArrowRight' && dx === 0) {
     dx = gridSize; dy = 0;
   }
 });
